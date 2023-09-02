@@ -3,15 +3,6 @@
   "author": "Minimals UI",
   "version": "4.3.0",
   "description": "Simple Next.Js & Typescript",
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "rules": {
-      "no-unused-vars": "off"
-    }
-  },
   "private": true,
   "scripts": {
     "dev": "next dev -p 8084",

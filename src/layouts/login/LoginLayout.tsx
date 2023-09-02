@@ -27,15 +27,21 @@ export default function LoginLayout({ children, illustration, title }: Props) {
       />
 
       <StyledSection>
-        <Typography variant="h3" sx={{ mb: 10, maxWidth: 480, textAlign: 'center' }}>
-          {title || 'Olá, seja bem-vindo!'}
+        <Typography variant="h3" sx={{ mb: 3, maxWidth: 480, textAlign: 'center' }}>
+          {title || (
+            <>
+              Olá, seja bem-vindo!
+              <br />
+              Ao nosso instituto.
+            </>
+          )}
         </Typography>
 
         <Image
           disabledEffect
           visibleByDefault
           alt="auth"
-          src={illustration || '/assets/illustrations/illustration_dashboard.png'}
+          src={illustration || '/assets/illustrations/fundo_login.png'}
           sx={{ maxWidth: 720 }}
         />
 
