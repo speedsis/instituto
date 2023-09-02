@@ -3,7 +3,7 @@ import { paramCase, capitalCase } from 'change-case';
 // @mui
 import { Container } from '@mui/material';
 // routes
-import { PATH_CADASTRO, PATH_DASHBOARD } from 'src/routes/paths';
+import { PATH_DASHBOARD } from 'src/routes/paths';
 // hooks
 
 // layouts
@@ -42,7 +42,7 @@ export default function PessoaEdit(props: any) {
           heading="Editando Fornecedor"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Listagem de fornecedor', href: PATH_CADASTRO.pessoa.list },
+            { name: 'Listagem de fornecedor', href: PATH_DASHBOARD.pessoa.list },
             { name: capitalCase(currentClifor.nome as string) },
           ]}
         />

@@ -1,7 +1,7 @@
 // @mui
 import { Container } from '@mui/material';
 // routes
-import { PATH_CADASTRO } from 'src/routes/paths';
+import { PATH_DASHBOARD } from 'src/routes/paths';
 
 // components
 import { useSettingsContext } from 'src/components/settings';
@@ -31,8 +31,8 @@ export default function FornecedorCreate() {
         <HeaderBreadcrumbs
           heading="Novo cadastro"
           links={[
-            { name: 'Dashboard', href: PATH_CADASTRO.root },
-            { name: 'Listagem de pessoas', href: PATH_CADASTRO.pessoa.list },
+            { name: 'Dashboard', href: PATH_DASHBOARD.root },
+            { name: 'Listagem de pessoas', href: PATH_DASHBOARD.pessoa.list },
             { name: 'Novo cadastro' },
           ]}
         />

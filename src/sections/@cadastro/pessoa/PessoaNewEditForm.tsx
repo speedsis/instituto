@@ -31,7 +31,7 @@ import {
 // utils
 import { fData } from 'src/utils/formatNumber';
 // routes
-import { PATH_CADASTRO } from 'src/routes/paths';
+import { PATH_DASHBOARD } from 'src/routes/paths';
 
 import {
   FormProvider,

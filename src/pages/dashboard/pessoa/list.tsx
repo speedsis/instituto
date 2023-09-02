@@ -27,7 +27,7 @@ import {
   Stack,
 } from '@mui/material';
 // routes
-import { PATH_CADASTRO, PATH_DASHBOARD } from 'src/routes/paths';
+import { PATH_DASHBOARD } from 'src/routes/paths';
 
 // hooks
 import useTabs from 'src/hooks/useTabs';
@@ -154,7 +154,7 @@ export default function FornecedorList({ listFornecedor }: Props) {
   };
 
   const handleEditRow = (id: string) => {
-    push(PATH_CADASTRO.pessoa.edit(Number(paramCase(id))));
+    // push(PATH_DASHBOARD.pessoa.edit(Number(paramCase(id))));
   };
 
   const dataFiltered = applySortFilter({
@@ -179,7 +179,7 @@ export default function FornecedorList({ listFornecedor }: Props) {
           heading="Listagem de Pessoas"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.home },
-            { name: 'Pessoas', href: PATH_CADASTRO.pessoa.list },
+            { name: 'Pessoas', href: PATH_DASHBOARD.pessoa.list },
             { name: 'Listagem' },
           ]}
           action={
@@ -190,7 +190,7 @@ export default function FornecedorList({ listFornecedor }: Props) {
                     <Iconify icon={'eva:printer-fill'} />
                   </IconButton>
                 </Tooltip>
-                <NextLink href={PATH_CADASTRO.pessoa.new} passHref>
+                <NextLink href={PATH_DASHBOARD.pessoa.new} passHref>
                   <Tooltip title="Novo registro">
                     <IconButton>
                       <Iconify icon={'carbon:add-filled'} />
@@ -256,7 +256,8 @@ export default function FornecedorList({ listFornecedor }: Props) {
                   rowCount={tableData?.length}
                   numSelected={selected?.length}
                   onSort={onSort}
-                  onSelectAllRows={(checked) =>
+                  onSelectAllRows={
+                    (checked) => {}
                     // onSelectAllRows(
                     //   checked,
                     //   tableData.map((row) => row.id)
