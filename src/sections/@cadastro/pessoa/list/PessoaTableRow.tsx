@@ -17,14 +17,14 @@ import createAvatar from 'src/utils/createAvatar';
 
 // components
 
-import { ClienteFornecedor } from 'src/@types/cliente-fornecedor';
+import { Pessoas } from 'src/@types/cliente-fornecedor';
 import { formatCPFAsteristico } from 'src/utils/formatTime';
 import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
 type Props = {
-  row: ClienteFornecedor;
+  row: Pessoas;
   selected: boolean;
   onEditRow: VoidFunction;
   onSelectRow: VoidFunction;
@@ -77,54 +77,22 @@ export default function PessoaTableRow({
           <Typography variant="subtitle2" noWrap>
             {clifor?.nome}
           </Typography>
-
-          <Typography variant="subtitle2" noWrap>
-            {clifor?.atividade?.descricao}
-          </Typography>
         </Stack>
       </TableCell>
 
-      <TableCell align="left">{formatCPFAsteristico(clifor.cnpjcpf)}</TableCell>
+      <TableCell align="left">{formatCPFAsteristico(clifor.cpf)}</TableCell>
+
+      <TableCell align="left">{clifor.city}</TableCell>
+
+      <TableCell align="left">{clifor.bairro}</TableCell>
 
       <TableCell align="left">{clifor.email}</TableCell>
-
-      <TableCell align="left">{clifor.fone1}</TableCell>
 
       <TableCell align="left">{clifor.fonecelular}</TableCell>
 
       <TableCell align="left">{clifor.flag_ativo}</TableCell>
 
-      <TableCell align="right">
-        ...
-        {/* <TableMoreMenu
-          open={openMenu}
-          onOpen={handleOpenMenu}
-          onClose={handleCloseMenu}
-          actions={
-            <>
-              <MenuItem
-                onClick={() => {
-                  onDeleteRow();
-                  handleCloseMenu();
-                }}
-                sx={{ color: 'error.main' }}
-              >
-                <Iconify icon="eva:trash-2-outline" />
-                Delete
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  onEditRow();
-                  handleCloseMenu();
-                }}
-              >
-                <Iconify icon="eva:edit-fill" />
-                Edit
-              </MenuItem>
-            </>
-          }
-        /> */}
-      </TableCell>
+      <TableCell align="right">...</TableCell>
     </TableRow>
   );
 }

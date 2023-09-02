@@ -20,8 +20,8 @@ export const CATEGORIA_FORNECEDOR = [
 ];
 
 export const STATUS_FORNECEDOR = [
-  { code: 'A', label: 'Ativo' },
-  { code: 'I', label: 'Inativo' },
+  { code: true, label: 'Ativo' },
+  { code: false, label: 'Inativo' },
 ];
 
 export const TIPO_FORNECEDOR_COLABORADOR = [

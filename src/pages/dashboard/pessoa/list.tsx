@@ -57,10 +57,11 @@ import {
 
 import { PessoaTableRow, PessoaTableToolbar } from 'src/sections/@cadastro/pessoa/list';
 
-import { ClienteFornecedor } from 'src/@types/cliente-fornecedor';
+import { Pessoas } from 'src/@types/cliente-fornecedor';
 import useToggle from 'src/hooks/useToggle';
 import Scrollbar from 'src/components/scrollbar';
 import Iconify from 'src/components/iconify';
+import makeHttp from 'src/utils/http';
 
 // ----------------------------------------------------------------------
 
@@ -69,9 +70,10 @@ const STATUS_OPTIONS = ['todos'];
 const TABLE_HEAD = [
   { id: 'id', label: 'ID', align: 'left' },
   { id: 'nome', label: 'Nome', align: 'left', width: 600 },
-  { id: 'cpfCnpj', label: 'CPF/CNPJ', align: 'left' },
-  { id: 'email', label: 'Email', align: 'left' },
-  { id: 'fone1', label: 'Contato', align: 'left' },
+  { id: 'cpfCnpj', label: 'CPF', align: 'left' },
+  { id: 'email', label: 'Cidade', align: 'left' },
+  { id: 'bairro', label: 'Bairro', align: 'left' },
+  { id: 'email', label: 'email', align: 'left' },
   { id: 'fonecelular', label: 'Celular', align: 'left' },
   { id: 'flag_ativo', label: 'Ativo', align: 'left' },
   { id: '' },
@@ -86,10 +88,10 @@ FornecedorList.getLayout = function getLayout(page: React.ReactElement) {
 // ----------------------------------------------------------------------
 
 interface Props {
-  listFornecedor: ClienteFornecedor[];
+  listPessoas: Pessoas[];
 }
 
-export default function FornecedorList({ listFornecedor }: Props) {
+export default function FornecedorList({ listPessoas }: Props) {
   const {
     dense,
     page,
@@ -111,7 +113,7 @@ export default function FornecedorList({ listFornecedor }: Props) {
 
   const { toggle: open, onOpen, onClose } = useToggle();
 
-  const [tableData, setTableData] = useState(listFornecedor);
+  const [tableData, setTableData] = useState<Pessoas[]>(listPessoas);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -154,7 +156,7 @@ export default function FornecedorList({ listFornecedor }: Props) {
   };
 
   const handleEditRow = (id: string) => {
-    // push(PATH_DASHBOARD.pessoa.edit(Number(paramCase(id))));
+    push(PATH_DASHBOARD.pessoa.edit(Number(paramCase(id))));
   };
 
   const dataFiltered = applySortFilter({
@@ -266,7 +268,7 @@ export default function FornecedorList({ listFornecedor }: Props) {
                 />
 
                 <TableBody>
-                  {/* {dataFiltered?
+                  {dataFiltered
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <PessoaTableRow
@@ -277,7 +279,7 @@ export default function FornecedorList({ listFornecedor }: Props) {
                         onDeleteRow={() => handleDeleteRow(Number(row.id.toString()))}
                         onEditRow={() => handleEditRow(row.id.toString())}
                       />
-                    ))} */}
+                    ))}
 
                   <TableEmptyRows
                     height={denseHeight}
@@ -322,7 +324,7 @@ function applySortFilter({
   filterStatus,
 }: // filterRole,
 {
-  tableData: ClienteFornecedor[];
+  tableData: Pessoas[];
   comparator: (a: any, b: any) => number;
   filterName: string;
   filterStatus: string;
@@ -348,18 +350,13 @@ function applySortFilter({
   return tableData;
 }
 
-// export const getServerSideProps = withAuth(async (ctx, { token }) => {
-//   const { data } = await makeHttp(token).get(
-//     `cliente-fornecedor/?page=0&limit=50&tipocadastro='F'&nome=`
-//   );
+export async function getServerSideProps() {
+  const { data } = await makeHttp().get(`pessoa/?page=0&limit=50&nome=`);
+  const listPessoas = data.found.clifor;
 
-//   const listFornecedor = data.found.clifor;
-
-//   console.log('fornecedor', listFornecedor);
-
-//   return {
-//     props: {
-//       listFornecedor,
-//     },
-//   };
-// });
+  console.log('listPessoas', listPessoas);
+  // Os dados que você retornar serão passados como props para a página
+  return {
+    props: { listPessoas },
+  };
+}

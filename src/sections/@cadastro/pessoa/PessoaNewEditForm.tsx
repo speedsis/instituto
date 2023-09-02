@@ -25,7 +25,6 @@ import {
   Typography,
   FormControlLabel,
   TextField,
-  InputAdornment,
   Button,
 } from '@mui/material';
 // utils
@@ -50,7 +49,7 @@ import {
   TIPO_RESIDENCIA,
   TIPO_SEXO,
 } from 'src/_mock/_others';
-import { ClienteFornecedor } from 'src/@types/cliente-fornecedor';
+import { Pessoas } from 'src/@types/cliente-fornecedor';
 import { Atividade } from 'src/@types/atividade';
 import Label from 'src/components/Label';
 import axios from 'axios';
@@ -64,14 +63,14 @@ const LabelStyle = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
 }));
 
-type FormValuesProps = ClienteFornecedor;
+type FormValuesProps = Pessoas;
 
 type Props = {
   isEdit?: boolean;
-  currentClifor?: ClienteFornecedor;
+  currentPessoa?: Pessoas;
 };
 
-export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Props) {
+export default function PessoaNewEditForm({ isEdit = false, currentPessoa }: Props) {
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const { push } = useRouter();
@@ -96,40 +95,49 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
 
   const NewUserSchema = Yup.object().shape({
     nome: Yup.string().required('Nome é um campo requerido'),
-    cnpjcpf: Yup.string().required('CPF é um campo requerido'),
+    cpf: Yup.string().required('CPF é um campo requerido'),
   });
 
   const defaultValues = useMemo(
     () => ({
-      id: currentClifor?.id,
-      nome: currentClifor?.nome || '',
-      atividade_id: currentClifor?.atividade_id,
-      nomefantasia: currentClifor?.nome || '',
-      inscrestadual: currentClifor?.nome || '',
-      cnpjcpf: currentClifor?.cnpjcpf || '',
-      dtcadastro: currentClifor?.dtcadastro,
-      tipocadastro: currentClifor?.tipocadastro || 'F',
-      tipofisicajuridica: currentClifor?.tipofisicajuridica || 'J',
-      fone1: currentClifor?.fone1 || '',
-      fone2: currentClifor?.fone2 || '',
-      fonefax: currentClifor?.fonefax || '',
-      fonecelular: currentClifor?.fonecelular || '',
-      nomecontato1: currentClifor?.nomecontato1 || '',
-      nomecontato2: currentClifor?.nomecontato2 || '',
-      email: currentClifor?.email || '',
-      url: currentClifor?.url || '',
-
-      city: currentClifor?.city || '',
-      code: currentClifor?.code || '',
-      nro: currentClifor?.nro || '',
-      ufclifor: currentClifor?.ufclifor || '',
-      endereco: currentClifor?.endereco || '',
-      bairro: currentClifor?.bairro || '',
-      obsgeral: currentClifor?.obsgeral || '',
-      flaginativo: currentClifor?.flaginativo || false,
+      id: currentPessoa?.id,
+      nome: currentPessoa?.nome || '',
+      cpf: currentPessoa?.cpf || '',
+      atividade_id: currentPessoa?.atividade_id,
+      uf: currentPessoa?.uf || '',
+      endereco: currentPessoa?.endereco || '',
+      bairro: currentPessoa?.bairro || '',
+      city: currentPessoa?.city || '',
+      code: currentPessoa?.code,
+      nro: currentPessoa?.nro || '',
+      refpessoal: currentPessoa?.refpessoal || '',
+      dtcadastro: currentPessoa?.dtcadastro,
+      fonefax: currentPessoa?.fonefax || '',
+      fone1: currentPessoa?.fone1 || '',
+      fone2: currentPessoa?.fone2 || '',
+      fonecelular: currentPessoa?.fonecelular || '',
+      diavencimento: currentPessoa?.diavencimento,
+      tipocadastro: currentPessoa?.tipocadastro || 'F',
+      inscrestadual: currentPessoa?.inscrestadual || '',
+      obsgeral: currentPessoa?.obsgeral || '',
+      nomemae: currentPessoa?.nomemae || '',
+      titulo: currentPessoa?.titulo || '',
+      dtexpedicao: currentPessoa?.dtexpedicao,
+      zona: currentPessoa?.zona || '',
+      secao: currentPessoa?.secao || '',
+      email: currentPessoa?.email || '',
+      flaginativo: currentPessoa?.flaginativo || false,
+      dtultimaalteracao: currentPessoa?.dtultimaalteracao,
+      flagpontua: currentPessoa?.flagpontua || false,
+      flag_ativo: currentPessoa?.flag_ativo || false,
+      foto: currentPessoa?.foto || '',
+      rg: currentPessoa?.rg || '',
+      emissorrg: currentPessoa?.emissorrg || '',
+      dtexpedicaorg: currentPessoa?.dtexpedicaorg,
+      dtnascimento: currentPessoa?.dtnascimento,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [currentClifor]
+    [currentPessoa]
   );
 
   const methods = useForm<FormValuesProps>({
@@ -150,14 +158,14 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
   const values = watch();
 
   useEffect(() => {
-    if (isEdit && currentClifor) {
+    if (isEdit && currentPessoa) {
       reset(defaultValues);
     }
     if (!isEdit) {
       reset(defaultValues);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit, currentClifor]);
+  }, [isEdit, currentPessoa]);
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
@@ -171,6 +179,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
     console.log('resposta sever', data);
 
     try {
+      enqueueSnackbar('Versão de teste! Dados serão salvos na versao final.');
       //   !isEdit
       //     ? await makeHttp()
       //         .post(`cliente-fornecedor`, data)
@@ -178,7 +187,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
       //           new Promise((resolve) => setTimeout(resolve, 500));
       //           reset();
       //           enqueueSnackbar('Criado com sucesso!');
-      //           push(PATH_CADASTRO.pessoa.fornecedor.list);
+      //           push(PATH_CADASTRO.fornecedor.list);
       //         })
       //     : await makeHttp()
       //         .patch(`cliente-fornecedor/${currentClifor?.id}`, data)
@@ -186,14 +195,14 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
       //           new Promise((resolve) => setTimeout(resolve, 500));
       //           reset();
       //           enqueueSnackbar('Atualizado com successo!');
-      //           push(PATH_CADASTRO.pessoa.fornecedor.list);
+      //           push(PATH_CADASTRO.fornecedor.list);
       //         });
     } catch (e) {
       console.error(e);
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
       enqueueSnackbar('Ocorreu um erro inesperado, tente novamente mais tarde.');
-      //   push(PATH_CADASTRO.pessoa.list);
+      //   push(PATH_CADASTRO.list);
     }
   }
 
@@ -218,7 +227,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
       const data = await res.json();
 
       setValue('city', data.localidade);
-      setValue('ufclifor', data.uf);
+      setValue('uf', data.uf);
       setValue('bairro', data.bairro);
       setValue('endereco', data.logradouro);
     } catch (err) {
@@ -318,12 +327,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                 disabled
               />
 
-              <RHFTextField
-                name="cnpjcpf"
-                label="CPF"
-                size="small"
-                sx={{ maxWidth: { md: 260 } }}
-              />
+              <RHFTextField name="cpf" label="CPF" size="small" sx={{ maxWidth: { md: 260 } }} />
 
               <Controller
                 name="dtcadastro"
@@ -350,13 +354,13 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                 )}
               />
 
-              <RHFSelect name="tipovendedor" label="Status" size="small">
+              {/* <RHFSelect name="flaginativo" label="Status" size="small">
                 {STATUS_FORNECEDOR.map((option) => (
                   <option key={option.code} value={option.code}>
                     {option.label}
                   </option>
                 ))}
-              </RHFSelect>
+              </RHFSelect> */}
             </Box>
 
             <Box
@@ -371,7 +375,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
             >
               <RHFTextField name="nome" label="Nome completo" size="small" />
               <Controller
-                name="pessoa.dtnascimento"
+                name="dtnascimento"
                 control={control}
                 render={({ field, fieldState: { error } }) => (
                   <DatePicker
@@ -406,7 +410,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                 gridTemplateColumns: { sm: 'repeat(1, 3fr)' },
               }}
             >
-              <RHFTextField name="nome" label="Nome mãe" size="small" />
+              <RHFTextField name="nomemae" label="Nome mãe" size="small" />
             </Box>
 
             <Box
@@ -418,15 +422,10 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                 gridTemplateColumns: { sm: 'repeat(4, 3fr)' },
               }}
             >
-              <RHFTextField
-                name="pessoa.rg"
-                label="(RG)"
-                size="small"
-                sx={{ maxWidth: { md: 210 } }}
-              />
+              <RHFTextField name="rg" label="(RG)" size="small" sx={{ maxWidth: { md: 210 } }} />
 
               <Controller
-                name="pessoa.dtemissaorg"
+                name="dtexpedicaorg"
                 control={control}
                 render={({ field, fieldState: { error } }) => (
                   <DatePicker
@@ -450,12 +449,12 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                 )}
               />
               <RHFTextField
-                name="pessoa.emissorrg"
+                name="emissorrg"
                 label="Emissor RG"
                 size="small"
                 sx={{ maxWidth: { md: 210 } }}
               />
-              <RHFSelect name="pessoa.tipoestadocivil" label="Estado civil" size="small">
+              <RHFSelect name="inscrestadual" label="Estado civil" size="small">
                 {STATUS_ESTADO_CIVIL.map((option) => (
                   <option key={option.code} value={option.code}>
                     {option.label}
@@ -475,14 +474,14 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
               }}
             >
               <RHFTextField
-                name="pessoa.rg"
+                name="titulo"
                 label="Nro título"
                 size="small"
                 sx={{ maxWidth: { md: 210 } }}
               />
 
               <Controller
-                name="pessoa.dtemissaorg"
+                name="dtexpedicao"
                 control={control}
                 render={({ field, fieldState: { error } }) => (
                   <DatePicker
@@ -505,15 +504,10 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                   />
                 )}
               />
-              <RHFTextField
-                name="pessoa.zona"
-                label="Zona"
-                size="small"
-                sx={{ maxWidth: { md: 210 } }}
-              />
+              <RHFTextField name="zona" label="Zona" size="small" sx={{ maxWidth: { md: 210 } }} />
 
               <RHFTextField
-                name="pessoa.emissorrg"
+                name="secao"
                 label="Seção"
                 size="small"
                 sx={{ maxWidth: { md: 210 } }}
@@ -564,12 +558,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                 }}
               />
               <RHFTextField name="city" label="Cidade" size="small" />
-              <RHFTextField
-                name="ufclifor"
-                label="UF"
-                size="small"
-                sx={{ maxWidth: { md: 160 } }}
-              />
+              <RHFTextField name="uf" label="UF" size="small" sx={{ maxWidth: { md: 160 } }} />
             </Box>
 
             <Box
@@ -629,7 +618,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                 gridTemplateColumns: { sm: 'repeat(5, 1fr)' },
               }}
             >
-              <RHFSelect name="pessoa.tiporesidencia" label="Tipo residência" size="small">
+              <RHFSelect name="tiporesidencia" label="Tipo residência" size="small">
                 {TIPO_RESIDENCIA.map((option) => (
                   <option key={option.code} value={option.code}>
                     {option.label}
@@ -637,10 +626,10 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                 ))}
               </RHFSelect>
 
-              <RHFTextField name="pessoa.valaluguel" label="Valor aluguel" size="small" />
-              <RHFTextField name="pessoa.temporesidencia" label="Tempo residência" size="small" />
-              <RHFTextField name="pessoa.valsalarioatual" label="Outros rendimentos" size="small" />
-              <RHFTextField name="pessoa.valrendafamiliar" label="Renda atual" size="small" />
+              <RHFTextField name="valaluguel" label="Valor aluguel" size="small" />
+              <RHFTextField name="temporesidencia" label="Tempo residência" size="small" />
+              <RHFTextField name="valsalarioatual" label="Outros rendimentos" size="small" />
+              <RHFTextField name="valrendafamiliar" label="Renda atual" size="small" />
             </Box>
 
             <Box
@@ -728,7 +717,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
               }}
             >
               <RHFSelect
-                name="pessoa.profissao"
+                name="profissao"
                 label="Tipo profissão"
                 placeholder="Tipo profissão"
                 size="small"
@@ -744,7 +733,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                 ))}
               </RHFSelect>
 
-              <RHFSelect name="pessoa.tiporeligiao" label="Religião" size="small">
+              <RHFSelect name="tiporeligiao" label="Religião" size="small">
                 {TIPO_RELIGIAO.map((option) => (
                   <option key={option.code} value={option.code}>
                     {option.label}
@@ -752,7 +741,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                 ))}
               </RHFSelect>
 
-              <RHFSelect name="pessoa.timefutebol" label="Time de futebol" size="small">
+              <RHFSelect name="timefutebol" label="Time de futebol" size="small">
                 {TIME_FUTEBOL.map((option) => (
                   <option key={option.code} value={option.code}>
                     {option.label}
@@ -760,7 +749,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                 ))}
               </RHFSelect>
 
-              <RHFSelect name="pessoa.sexo" label="Sexo" size="small">
+              <RHFSelect name="sexo" label="Sexo" size="small">
                 {TIPO_SEXO.map((option) => (
                   <option key={option.code} value={option.code}>
                     {option.label}
@@ -878,7 +867,7 @@ export default function PessoaNewEditForm({ isEdit = false, currentClifor }: Pro
                 label={
                   <>
                     <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                      Banido
+                      Bloqueado
                     </Typography>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                       Aplicar para desativar

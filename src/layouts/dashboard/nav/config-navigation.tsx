@@ -22,7 +22,7 @@ const navConfig = [
   {
     subheader: 'hidra v1.0.0',
     items: [
-      { title: 'Dashboard', path: PATH_DASHBOARD.home, icon: ICONS.dashboard },
+      { title: 'Dashboard', path: PATH_DASHBOARD.pessoa.list, icon: ICONS.dashboard },
       {
         title: 'Pessoas',
         path: PATH_DASHBOARD.pessoa.root,

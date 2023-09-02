@@ -29,6 +29,6 @@ export const PATH_DASHBOARD = {
     root: path(ROOTS_DASHBOARD, '/pessoa'),
     list: path(ROOTS_DASHBOARD, '/pessoa/list'),
     new: path(ROOTS_DASHBOARD, '/pessoa/new'),
-    // edit: (id: number) => path(ROOTS_DASHBOARD, `/pessoa/${id}/edit`),
+    edit: (id: number) => path(ROOTS_DASHBOARD, `/pessoa/${id}/edit`),
   },
 };

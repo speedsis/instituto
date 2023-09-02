@@ -17,10 +17,11 @@ import PessoaNewEditForm from 'src/sections/@cadastro/pessoa/PessoaNewEditForm';
 //conection
 // import { withAuth } from 'src/utils/withAuth';
 // import makeHttp from 'src/utils/http';
-import { ClienteFornecedor } from 'src/@types/cliente-fornecedor';
+import { Pessoas } from 'src/@types/cliente-fornecedor';
 // layouts
 import DashboardLayout from 'src/layouts/dashboard';
 import { useSettingsContext } from 'src/components/settings';
+import makeHttp from 'src/utils/http';
 
 // ----------------------------------------------------------------------
 
@@ -31,38 +32,59 @@ PessoaEdit.getLayout = function getLayout(page: React.ReactElement) {
 // ----------------------------------------------------------------------
 
 export default function PessoaEdit(props: any) {
-  const currentClifor: ClienteFornecedor = props?.clifor;
+  const currentPessoa: Pessoas = props?.pessoa;
 
   const { themeStretch } = useSettingsContext();
 
   return (
-    <Page title="Fornecedor: Editar Fornecedor">
+    <Page title="Pessoas: Editar cadastros">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Editando Fornecedor"
+          heading="Editando cadastro"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Listagem de fornecedor', href: PATH_DASHBOARD.pessoa.list },
-            { name: capitalCase(currentClifor.nome as string) },
+            { name: 'Listagem de pessoas', href: PATH_DASHBOARD.pessoa.list },
+            { name: capitalCase(currentPessoa.nome as string) },
           ]}
         />
-        <PessoaNewEditForm isEdit currentClifor={currentClifor} />
+        <PessoaNewEditForm isEdit currentPessoa={currentPessoa} />
       </Container>
     </Page>
   );
 }
 
-// export const getServerSideProps = withAuth(async (ctx, { token }) => {
-//   const id = ctx.query.id as string;
-//   const { data } = await makeHttp(token).get(`cliente-fornecedor/${id}`);
+export const getServerSideProps = async (ctx: any) => {
+  const id = ctx.query.id as string;
 
-//   console.log('clifor', data);
+  const { data } = await makeHttp().get(`pessoa/${id}`);
 
-//   const clifor = data.clifor;
+  const pessoa = data.pessoa;
 
-//   return {
-//     props: {
-//       clifor,
-//     },
-//   };
-// });
+  console.log('pessoa', pessoa);
+
+  return {
+    props: {
+      pessoa,
+    },
+  };
+};
+
+// export async function getServerSideProps({ query }) {
+//   try {
+//     const id = query.id as string;
+//     const response = await makeHttp().get(`pessoa/${id}`);
+//     const pessoa = response.data.clifor;
+
+//     console.log('pessoa', pessoa);
+
+//     return {
+//       props: { pessoa },
+//     };
+//   } catch (error) {
+//     // Lidar com erros, como não encontrar a pessoa com o ID especificado
+//     // Você pode retornar um objeto com um status de erro aqui
+//     return {
+//       props: { error: 'Pessoa não encontrada' },
+//     };
+//   }
+// }
