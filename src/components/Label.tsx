@@ -67,11 +67,11 @@ const RootStyle = styled('span')(
             ...(variant === 'outlined' && {
               backgroundColor: 'transparent',
               color: theme.palette.text.primary,
-              border: `1px solid ${theme.palette.grey[500_32]}`,
+              border: `1px solid ${theme.palette.grey[50]}`,
             }),
             ...(variant === 'ghost' && {
               color: isLight ? theme.palette.text.secondary : theme.palette.common.white,
-              backgroundColor: theme.palette.grey[500_16],
+              backgroundColor: theme.palette.grey[50],
             }),
           }),
     };
