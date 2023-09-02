@@ -3,11 +3,11 @@ import { memo } from 'react';
 import { useTheme } from '@mui/material/styles';
 import { AppBar, Box, BoxProps, Toolbar } from '@mui/material';
 // config
-import { HEADER } from '../../../config-global';
+import { HEADER } from 'src/config-global';
 // utils
-import { bgBlur } from '../../../utils/cssStyles';
+import { bgBlur } from 'src/utils/cssStyles';
 // components
-import { NavSectionHorizontal } from '../../../components/nav-section';
+import { NavSectionHorizontal } from 'src/components/nav-section';
 //
 import navConfig from './config-navigation';
 

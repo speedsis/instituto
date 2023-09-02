@@ -17,7 +17,6 @@ import createAvatar from 'src/utils/createAvatar';
 
 // components
 
-import { TableMoreMenu } from 'src/components/table';
 import { ClienteFornecedor } from 'src/@types/cliente-fornecedor';
 import { formatCPFAsteristico } from 'src/utils/formatTime';
 import Iconify from 'src/components/iconify';
@@ -96,7 +95,8 @@ export default function PessoaTableRow({
       <TableCell align="left">{clifor.flag_ativo}</TableCell>
 
       <TableCell align="right">
-        <TableMoreMenu
+        ...
+        {/* <TableMoreMenu
           open={openMenu}
           onOpen={handleOpenMenu}
           onClose={handleCloseMenu}
@@ -123,7 +123,7 @@ export default function PessoaTableRow({
               </MenuItem>
             </>
           }
-        />
+        /> */}
       </TableCell>
     </TableRow>
   );

@@ -8,17 +8,6 @@ const ROOTS_DASHBOARD = '/dashboard';
 
 // ----------------------------------------------------------------------
 
-export const PATH_CADASTRO = {
-  root: ROOTS_DASHBOARD,
-
-  pessoa: {
-    root: path(ROOTS_DASHBOARD, '/pessoa'),
-    list: path(ROOTS_DASHBOARD, '/pessoa/list'),
-    new: path(ROOTS_DASHBOARD, '/pessoa/new'),
-    edit: (id: number) => path(ROOTS_DASHBOARD, `/pessoa/${id}/edit`),
-  },
-};
-
 export const PATH_AUTH = {
   login: '/login',
 };
@@ -35,5 +24,11 @@ export const PATH_DASHBOARD = {
     four: path(ROOTS_DASHBOARD, '/user/four'),
     five: path(ROOTS_DASHBOARD, '/user/five'),
     six: path(ROOTS_DASHBOARD, '/user/six'),
+  },
+  pessoa: {
+    root: path(ROOTS_DASHBOARD, '/pessoa'),
+    list: path(ROOTS_DASHBOARD, '/pessoa/list'),
+    new: path(ROOTS_DASHBOARD, '/pessoa/new'),
+    // edit: (id: number) => path(ROOTS_DASHBOARD, `/pessoa/${id}/edit`),
   },
 };

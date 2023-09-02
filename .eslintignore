@@ -3,3 +3,7 @@
 **/out/*
 **/.next/*
 next.config.js
+
+build/*.js
+config/*.js
+ 

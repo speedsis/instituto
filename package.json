@@ -3,6 +3,15 @@
   "author": "Minimals UI",
   "version": "4.3.0",
   "description": "Simple Next.Js & Typescript",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "rules": {
+      "no-unused-vars": "off"
+    }
+  },
   "private": true,
   "scripts": {
     "dev": "next dev -p 8084",
@@ -60,14 +69,14 @@
     "@types/react": "^18.0.28",
     "@types/react-lazy-load-image-component": "^1.5.2",
     "@types/stylis": "^4.0.2",
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
-    "@typescript-eslint/parser": "^5.52.0",
+    "@typescript-eslint/eslint-plugin": "^5.12.1",
+    "@typescript-eslint/parser": "^5.12.1",
+    "eslint-config-next": "^12.1.4",
+    "eslint-config-prettier": "^8.4.0",
     "eslint": "^8.34.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
-    "eslint-config-prettier": "^8.6.0",
     "eslint-config-react-app": "^7.0.1",
-    "eslint-config-next": "12.1.6",
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-flowtype": "^8.0.3",
     "eslint-plugin-import": "^2.27.5",

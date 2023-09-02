@@ -1,5 +1,5 @@
 // routes
-import { PATH_DASHBOARD, PATH_CADASTRO } from 'src/routes/paths';
+import { PATH_DASHBOARD } from 'src/routes/paths';
 // components
 import SvgColor from 'src/components/svg-color';
 
@@ -25,11 +25,11 @@ const navConfig = [
       { title: 'Dashboard', path: PATH_DASHBOARD.home, icon: ICONS.dashboard },
       {
         title: 'Pessoas',
-        path: PATH_CADASTRO.pessoa,
+        path: PATH_DASHBOARD.pessoa.root,
         icon: ICONS.user,
         children: [
-          { title: 'Listagem de pessoas', path: PATH_CADASTRO.pessoa.list },
-          { title: 'Novo cadastro', path: PATH_CADASTRO.pessoa.new },
+          { title: 'Listagem de pessoas', path: PATH_DASHBOARD.pessoa.list },
+          { title: 'Novo cadastro', path: PATH_DASHBOARD.pessoa.new },
           // { title: 'Novo tipo', path: PATH_PROTOCOLO.tipo.new },
         ],
       },

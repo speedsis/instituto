@@ -257,15 +257,15 @@ export default function FornecedorList({ listFornecedor }: Props) {
                   numSelected={selected?.length}
                   onSort={onSort}
                   onSelectAllRows={(checked) =>
-                    onSelectAllRows(
-                      checked,
-                      tableData.map((row) => row.id)
-                    )
+                    // onSelectAllRows(
+                    //   checked,
+                    //   tableData.map((row) => row.id)
+                    // )
                   }
                 />
 
                 <TableBody>
-                  {dataFiltered?
+                  {/* {dataFiltered?
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <PessoaTableRow
@@ -276,7 +276,7 @@ export default function FornecedorList({ listFornecedor }: Props) {
                         onDeleteRow={() => handleDeleteRow(Number(row.id.toString()))}
                         onEditRow={() => handleEditRow(row.id.toString())}
                       />
-                    ))}
+                    ))} */}
 
                   <TableEmptyRows
                     height={denseHeight}

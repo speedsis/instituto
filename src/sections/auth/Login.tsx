@@ -1,9 +1,9 @@
 // @mui
-import { Alert, Tooltip, Stack, Typography, Link, Box } from '@mui/material';
+import { Alert, Tooltip, Stack, Typography, Box } from '@mui/material';
 // auth
-import { useAuthContext } from '../../auth/useAuthContext';
+import { useAuthContext } from 'src/auth/useAuthContext';
 // layouts
-import LoginLayout from '../../layouts/login';
+import LoginLayout from 'src/layouts/login';
 //
 import AuthLoginForm from './AuthLoginForm';
 import AuthWithSocial from './AuthWithSocial';
